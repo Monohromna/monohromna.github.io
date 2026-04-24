@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Анна & Едуард — Весілля</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f5f0e8;
+      --warm:    #ede5d0;
+      --sand:    #c9b99a;
+      --clay:    #9a7b5a;
+      --deep:    #3d2b1f;
+      --gold:    #b08d57;
+      --text:    #4a3728;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.5;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(176,141,87,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 90%, rgba(154,123,90,0.10) 0%, transparent 60%),
+        var(--cream);
+    }
+
+    /* Botanical SVG decorations */
+    .botanical {
+      position: absolute;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .botanical-tl { top: -20px; left: -20px; width: 320px; transform: rotate(-10deg); }
+    .botanical-br { bottom: -20px; right: -20px; width: 280px; transform: rotate(170deg); }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      letter-spacing: 0.35em;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      line-height: 0.95;
+      color: var(--deep);
+      opacity: 0;
+      animation: fadeUp 1s 0.6s forwards;
+    }
+    .hero-names em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-ampersand {
+      display: block;
+      font-style: italic;
+      font-size: 0.55em;
+      color: var(--sand);
+      margin: 0.1em 0;
+    }
+
+    .hero-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      letter-spacing: 0.15em;
+      color: var(--clay);
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s forwards;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--sand), transparent);
+      margin: 2.5rem auto;
+      opacity: 0;
+      animation: fadeUp 1s 1.1s forwards;
+    }
+
+    .hero-invite {
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      color: var(--clay);
+      opacity: 0;
+      animation: fadeUp 1s 1.3s forwards;
+    }
+
+    /* ── SECTIONS BASE ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      letter-spacing: 0.4em;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--deep);
+      margin-bottom: 1.8rem;
+      line-height: 1.15;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text);
+      max-width: 600px;
+    }
+
+    /* ── SEPARATOR ── */
+    .ornament {
+      text-align: center;
+      color: var(--sand);
+      font-size: 1.4rem;
+      letter-spacing: 0.6em;
+      margin: 1rem 0 3rem;
+      opacity: 0.7;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .about-card {
+      background: var(--warm);
+      border: 1px solid rgba(176,141,87,0.2);
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 2rem; right: 2rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .about-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-style: italic;
+      color: var(--deep);
+      margin-bottom: 0.8rem;
+    }
+    .about-card p { font-size: 0.95rem; line-height: 1.8; }
+
+    /* ── ABOUT PHOTO ── */
+    .about-card-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      margin: -2.5rem -2rem 1.8rem;
+      width: calc(100% + 4rem);
+      filter: sepia(15%) contrast(1.05);
+    }
+    .about-card-photo-placeholder {
+      width: calc(100% + 4rem);
+      margin: -2.5rem -2rem 1.8rem;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, var(--sand) 0%, var(--warm) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .about-card-photo-placeholder svg { opacity: 0.35; }
+    .about-card-photo-placeholder span {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--clay);
+      opacity: 0.7;
+    }
+
+    /* ── PLACE ── */
+    #place { background: var(--warm); max-width: 100%; padding: 6rem 2rem; }
+    #place-inner { max-width: 860px; margin: 0 auto; }
+
+    .place-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .place-item {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(176,141,87,0.25);
+      background: var(--cream);
+    }
+
+    .place-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .place-item-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .place-item-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--deep);
+      font-style: italic;
+    }
+
+    .map-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 0.85rem 2.5rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .map-link:hover { background: var(--gold); color: var(--cream); }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      margin-top: 3rem;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 80px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--sand) 10%, var(--sand) 90%, transparent);
+    }
+    @media (max-width: 500px) {
+      .timeline::before { left: 50px; }
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s;
+    }
+    .timeline-item.visible { opacity: 1; transform: none; }
+
+    .timeline-time {
+      min-width: 80px;
+      text-align: right;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--gold);
+      padding-top: 0.15rem;
+    }
+    @media (max-width: 500px) { .timeline-time { min-width: 50px; font-size: 0.95rem; } }
+
+    .timeline-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      background: var(--cream);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    .timeline-text strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--deep);
+      margin-bottom: 0.2rem;
+    }
+    .timeline-text span { font-size: 0.88rem; color: var(--clay); }
+
+    /* ── RSVP / BOT ── */
+    #rsvp {
+      text-align: center;
+      padding: 7rem 2rem;
+    }
+
+    .rsvp-subtitle {
+      font-size: 1.05rem;
+      color: var(--clay);
+      max-width: 520px;
+      margin: 1.5rem auto 3rem;
+      line-height: 1.8;
+    }
+
+    .bot-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--deep);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 1.1rem 3rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .bot-btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      z-index: 0;
+    }
+    .bot-btn:hover::after { transform: scaleX(1); }
+    .bot-btn span { position: relative; z-index: 1; }
+
+    .bot-btn svg { position: relative; z-index: 1; }
+
+    .rsvp-note {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--sand);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(176,141,87,0.2);
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      color: var(--sand);
+      text-transform: uppercase;
+    }
+    footer strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    /* ── HERO SURNAME ── */
+    .hero-surname {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.1rem, 3vw, 1.8rem);
+      letter-spacing: 0.35em;
+      color: var(--clay);
+      opacity: 0;
+      animation: fadeUp 1s 0.75s forwards;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    /* ── VENUE BLOCKS ── */
+    .venue-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 640px) { .venue-split { grid-template-columns: 1fr; } }
+
+    .venue-block {
+      background: var(--cream);
+      border: 1px solid rgba(176,141,87,0.25);
+      padding: 2.5rem 2rem;
+      position: relative;
+      text-align: center;
+    }
+    .venue-block::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 2rem; right: 2rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .venue-block-tag {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      letter-spacing: 0.4em;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .venue-block-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--deep);
+      margin-bottom: 1.2rem;
+    }
+    .venue-block-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--clay);
+    }
+    .venue-block-row span { font-size: 1rem; }
+    .venue-map-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.55rem 1.5rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .venue-map-link:hover { background: var(--gold); color: var(--cream); }
+
+    /* ── PHOTO SECTION ── */
+    #photos {
+      background: var(--deep);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+    #photos .section-label { color: var(--sand); opacity: 0.7; }
+    #photos .section-title { color: var(--cream); }
+    #photos .section-title em { color: var(--gold); }
+    #photos .ornament { color: var(--gold); opacity: 0.4; }
+
+    .photo-upload-area {
+      max-width: 600px;
+      margin: 2.5rem auto 0;
+      border: 1px dashed rgba(176,141,87,0.4);
+      padding: 3.5rem 2rem;
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+      position: relative;
+    }
+    .photo-upload-area:hover {
+      border-color: var(--gold);
+      background: rgba(176,141,87,0.05);
+    }
+    .photo-upload-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      opacity: 0.6;
+    }
+    .photo-upload-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+    .photo-upload-sub {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      color: var(--sand);
+      opacity: 0.7;
+    }
+    .photo-upload-btn {
+      display: inline-block;
+      margin-top: 1.8rem;
+      padding: 0.75rem 2.2rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: none;
+    }
+    .photo-upload-btn:hover { background: var(--gold); color: var(--deep); }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      max-width: 860px;
+      margin: 2rem auto 0;
+    }
+    .photo-grid img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      filter: sepia(10%);
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .photo-grid img:hover { filter: none; transform: scale(1.02); }
+    #photoInput { display: none; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s, transform 0.8s;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Botanical SVG top-left -->
+  <svg class="botanical botanical-tl" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 300 Q80 200 160 150 Q240 100 300 20" stroke="#9a7b5a" stroke-width="1.2" fill="none"/>
+    <path d="M160 150 Q120 80 80 40" stroke="#9a7b5a" stroke-width="0.8" fill="none"/>
+    <path d="M160 150 Q200 120 220 60" stroke="#9a7b5a" stroke-width="0.8" fill="none"/>
+    <ellipse cx="80" cy="40" rx="14" ry="22" fill="#9a7b5a" opacity="0.4" transform="rotate(-30 80 40)"/>
+    <ellipse cx="220" cy="60" rx="12" ry="20" fill="#9a7b5a" opacity="0.3" transform="rotate(20 220 60)"/>
+    <ellipse cx="300" cy="20" rx="10" ry="18" fill="#9a7b5a" opacity="0.35" transform="rotate(-50 300 20)"/>
+    <circle cx="130" cy="200" r="5" fill="#b08d57" opacity="0.5"/>
+    <circle cx="200" cy="170" r="3.5" fill="#b08d57" opacity="0.4"/>
+    <circle cx="260" cy="80" r="4" fill="#b08d57" opacity="0.3"/>
+  </svg>
+
+  <!-- Botanical SVG bottom-right -->
+  <svg class="botanical botanical-br" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 300 Q80 200 160 150 Q240 100 300 20" stroke="#9a7b5a" stroke-width="1.2" fill="none"/>
+    <path d="M160 150 Q120 80 80 40" stroke="#9a7b5a" stroke-width="0.8" fill="none"/>
+    <path d="M160 150 Q200 120 220 60" stroke="#9a7b5a" stroke-width="0.8" fill="none"/>
+    <ellipse cx="80" cy="40" rx="14" ry="22" fill="#9a7b5a" opacity="0.4" transform="rotate(-30 80 40)"/>
+    <ellipse cx="220" cy="60" rx="12" ry="20" fill="#9a7b5a" opacity="0.3" transform="rotate(20 220 60)"/>
+    <ellipse cx="300" cy="20" rx="10" ry="18" fill="#9a7b5a" opacity="0.35" transform="rotate(-50 300 20)"/>
+    <circle cx="130" cy="200" r="5" fill="#b08d57" opacity="0.5"/>
+    <circle cx="200" cy="170" r="3.5" fill="#b08d57" opacity="0.4"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Запрошення на весілля</p>
+
+    <h1 class="hero-names">
+      <em>Анна</em>
+      <span class="hero-ampersand">&amp;</span>
+      <em>Едуард</em>
+    </h1>
+
+    <p class="hero-surname">Шаповалові</p>
+
+    <p class="hero-date">14 · 08 · 2026</p>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-invite">Ми раді запросити вас розділити цей особливий день з нами</p>
+  </div>
+</header>
+
+
+<!-- ═══ НАША ІСТОРІЯ ═══ -->
+<section id="about">
+  <span class="section-label reveal">Наша історія</span>
+  <h2 class="section-title reveal">Два серця — <em>одна доля</em></h2>
+  <div class="ornament reveal">✦ ✦ ✦</div>
+
+  <p class="section-body reveal">
+    Ми зустрілись випадково — і з тих пір не уявляємо свого життя один без одного.
+    Роки разом навчили нас довіряти, сміятись і підтримувати. Сьогодні ми робимо
+    наступний крок і просимо вас бути поруч у найважливіший день нашого життя.
+  </p>
+
+  <div class="about-grid">
+    <div class="about-card reveal">
+      <!-- Замініть src на посилання або відносний шлях до фото нареченої -->
+      <div class="about-card-photo-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9a7b5a" stroke-width="1">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <span>Фото Анни</span>
+      </div>
+      <!-- або: <img src="anna.jpg" alt="Анна" class="about-card-photo"> -->
+      <div class="about-card-name">Анна</div>
+      <p>
+        Зв'язківиця, що любить ранкову каву, книги й довгі прогулянки.
+        Вона та, що освітлює кожну кімнату, в яку входить.
+      </p>
+    </div>
+    <div class="about-card reveal">
+      <!-- Замініть src на посилання або відносний шлях до фото нареченого -->
+      <div class="about-card-photo-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9a7b5a" stroke-width="1">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <span>Фото Едуарда</span>
+      </div>
+      <!-- або: <img src="eduard.jpg" alt="Едуард" class="about-card-photo"> -->
+      <div class="about-card-name">Едуард</div>
+      <p>
+        Той, що розробляє Метро. Надійний і теплий, завжди знає, як розсмішити. Мандрівник і кулінар-ентузіаст,
+        який готовий готувати борщ опівночі.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ МІСЦЕ ═══ -->
+<div id="place">
+  <div id="place-inner">
+    <span class="section-label reveal">Де та коли</span>
+    <h2 class="section-title reveal">Місце <em>святкування</em></h2>
+    <div class="ornament reveal">✦ ✦ ✦</div>
+
+    <p class="section-body reveal">
+      Два особливих місця — один незабутній день.
+      Спочатку урочиста церемонія, а потім — свято, яке ми будемо пам'ятати все життя.
+    </p>
+
+    <div class="venue-split">
+      <div class="venue-block reveal">
+        <span class="venue-block-tag">Церемонія</span>
+        <div class="venue-block-title">Урочисте одруження</div>
+        <div class="venue-block-row"><span>🗓</span> 14 серпня 2026</div>
+        <div class="venue-block-row"><span>⏰</span> 14:00</div>
+        <div class="venue-block-row"><span>📍</span> РАЦС №1, Київ</div>
+        <div class="venue-block-row"><span>🌿</span> вул. Церемоніальна, 1</div>
+        <a href="https://maps.google.com/?q=РАЦС+Київ" target="_blank" class="venue-map-link">На карті →</a>
+      </div>
+      <div class="venue-block reveal">
+        <span class="venue-block-tag">Святкування</span>
+        <div class="venue-block-title">Банкет & вечірка</div>
+        <div class="venue-block-row"><span>🗓</span> 14 серпня 2026</div>
+        <div class="venue-block-row"><span>⏰</span> 16:00</div>
+        <div class="venue-block-row"><span>📍</span> Ресторан «Диканька», Київ</div>
+        <div class="venue-block-row"><span>🌿</span> вул. Малишка, 4</div>
+        <a href="https://maps.google.com/?q=вул.+Малишка+4+Київ" target="_blank" class="venue-map-link">На карті →</a>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div style="margin-top:5rem">
+      <span class="section-label reveal">Програма вечора</span>
+      <h3 class="section-title reveal" style="font-size:clamp(1.6rem,3.5vw,2.4rem)">Як <em>пройде день</em></h3>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-time">14:00</span>
+          <span class="timeline-dot"></span>
+          <div class="timeline-text">
+            <strong>Церемонія</strong>
+            <span>Урочисте одруження в РАЦС</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-time">16:00</span>
+          <span class="timeline-dot"></span>
+          <div class="timeline-text">
+            <strong>Зустріч гостей</strong>
+            <span>Привітання, аперитив у саду</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-time">18:30</span>
+          <span class="timeline-dot"></span>
+          <div class="timeline-text">
+            <strong>Банкет</strong>
+            <span>Вечеря, тости, жива музика</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-time">21:00</span>
+          <span class="timeline-dot"></span>
+          <div class="timeline-text">
+            <strong>Перший танець & торт</strong>
+            <span>Солодкий момент для двох</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-time">21:30</span>
+          <span class="timeline-dot"></span>
+          <div class="timeline-text">
+            <strong>Вечірка</strong>
+            <span>Танці до ранку 🎉</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ СПІЛЬНЕ ФОТО ═══ -->
+<div id="photos">
+  <span class="section-label reveal">Спогади</span>
+  <h2 class="section-title reveal">Поділіться <em>моментом</em></h2>
+  <div class="ornament reveal" style="color:var(--gold);opacity:0.4">✦ ✦ ✦</div>
+
+  <p class="reveal" style="color:var(--sand);font-size:1rem;line-height:1.8;max-width:520px;margin:0 auto 2.5rem;">
+    Кожна ваша фотографія стане частиною нашої спільної пам'яті.
+    Завантажте знімки прямо тут — ми збережемо їх назавжди.
+  </p>
+
+  <div class="photo-upload-area reveal" onclick="document.getElementById('photoInput').click()">
+    <span class="photo-upload-icon">📷</span>
+    <div class="photo-upload-title">Ваше фото з нашого дня</div>
+    <div class="photo-upload-sub">Клікніть або перетягніть фотографії сюди</div>
+    <button class="photo-upload-btn" type="button">Обрати фото</button>
+  </div>
+  <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhotos(event)">
+
+  <div class="photo-grid" id="photoGrid"></div>
+</div>
+
+
+<!-- ═══ RSVP / BOT ═══ -->
+<section id="rsvp">
+  <span class="section-label reveal">Підтвердження</span>
+  <h2 class="section-title reveal">Чекаємо <em>на вас</em></h2>
+  <div class="ornament reveal">✦ ✦ ✦</div>
+
+  <p class="rsvp-subtitle reveal">
+    Будь ласка, підтвердьте свою присутність та дайте відповіді на кілька запитань
+    через нашого Telegram-бота. Це займе лише хвилину — і допоможе нам підготуватись
+    до ідеального свята для вас.
+  </p>
+
+  <div class="reveal">
+    <a href="https://t.me/your_wedding_bot" target="_blank" class="bot-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
+      </svg>
+      <span>Відповісти у Telegram</span>
+    </a>
+  </div>
+
+  <p class="rsvp-note reveal">Будемо вдячні за відповідь до 1 серпня 2026</p>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p style="margin-bottom:0.6rem"><strong>Анна & Едуард Шаповалові</strong></p>
+  <p>14 · 08 · 2026 &nbsp;·&nbsp; Київ</p>
+  <p style="margin-top:1rem; font-size:0.68rem; opacity:0.6">З любов'ю зроблено для вас</p>
+</footer>
+
+
+<script>
+  // ── Intersection Observer for reveal animations ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // ── Photo upload preview ──
+  function handlePhotos(e) {
+    const grid = document.getElementById('photoGrid');
+    Array.from(e.target.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const img = document.createElement('img');
+        img.src = ev.target.result;
+        img.alt = 'Фото гостя';
+        grid.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Drag & drop support
+  const uploadArea = document.querySelector('.photo-upload-area');
+  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor = 'var(--gold)'; });
+  uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor = ''; });
+  uploadArea.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadArea.style.borderColor = '';
+    const dt = e.dataTransfer;
+    if (dt.files.length) handlePhotos({ target: dt });
+  });
+</script>
+
+</body>
+</html>
