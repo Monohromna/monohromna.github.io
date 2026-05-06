@@ -578,6 +578,112 @@
     }
     .photo-grid img:hover { filter: none; transform: scale(1.02); }
     #photoInput { display: none; }
+
+    /* ── COUPLE PHOTO ── */
+    .about-couple-photo {
+      margin-top: 3rem;
+      position: relative;
+    }
+    .about-couple-img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+      filter: sepia(12%) contrast(1.04);
+    }
+    .about-couple-placeholder {
+      width: 100%;
+      height: 380px;
+      background: linear-gradient(160deg, var(--warm) 0%, var(--sand) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      border: 1px solid rgba(176,141,87,0.2);
+    }
+    .about-couple-placeholder svg { opacity: 0.35; }
+    .about-couple-placeholder span {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--clay);
+      opacity: 0.8;
+    }
+    .about-couple-placeholder small {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--clay);
+      opacity: 0.5;
+    }
+
+    /* ── DRESSCODE ── */
+    #dresscode { padding: 6rem 2rem; max-width: 860px; margin: 0 auto; }
+
+    .dresscode-palette {
+      display: flex;
+      gap: 1.5rem;
+      margin: 2.5rem 0 3rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .dresscode-swatch { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+    .dresscode-swatch-color {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(176,141,87,0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .dresscode-swatch-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+
+    .dresscode-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 600px) { .dresscode-cards { grid-template-columns: 1fr; } }
+
+    .dresscode-card {
+      border: 1px solid rgba(176,141,87,0.2);
+      padding: 2rem 1.8rem;
+      background: var(--warm);
+      position: relative;
+    }
+    .dresscode-card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 2rem; right: 2rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .dresscode-card-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+    .dresscode-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--deep);
+      margin-bottom: 0.6rem;
+    }
+    .dresscode-card p { font-size: 0.9rem; line-height: 1.8; color: var(--clay); }
+
+    .dresscode-note {
+      margin-top: 2.5rem;
+      padding: 1.4rem 2rem;
+      border-left: 2px solid var(--gold);
+      background: rgba(176,141,87,0.06);
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--text);
+      font-style: italic;
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -654,16 +760,23 @@
     наступний крок і просимо вас бути поруч у найважливіший день нашого життя.
   </p>
 
+  <!-- Спільне фото на двох -->
+  <div class="about-couple-photo reveal">
+    <!-- Замініть на своє спільне фото: <img src="couple.jpg" alt="Анна та Едуард" class="about-couple-img"> -->
+    <div class="about-couple-placeholder">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#9a7b5a" stroke-width="0.8">
+        <circle cx="9" cy="7" r="3"/><path d="M2 20c0-3.5 3-6 7-6"/>
+        <circle cx="15" cy="7" r="3"/><path d="M22 20c0-3.5-3-6-7-6"/>
+        <path d="M9 20c0-3.5 2.7-6 6-6s6 2.5 6 6" opacity="0.4"/>
+      </svg>
+      <span>Ваше спільне фото</span>
+      <small>Замініть на &lt;img src="couple.jpg"&gt;</small>
+    </div>
+  </div>
+
+  <!-- Індивідуальні описи -->
   <div class="about-grid">
     <div class="about-card reveal">
-      <!-- Замініть src на посилання або відносний шлях до фото нареченої -->
-      <div class="about-card-photo-placeholder">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9a7b5a" stroke-width="1">
-          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-        </svg>
-        <span>Фото Анни</span>
-      </div>
-      <!-- або: <img src="anna.jpg" alt="Анна" class="about-card-photo"> -->
       <div class="about-card-name">Анна</div>
       <p>
         Зв'язківиця, що любить ранкову каву, книги й довгі прогулянки.
@@ -671,14 +784,6 @@
       </p>
     </div>
     <div class="about-card reveal">
-      <!-- Замініть src на посилання або відносний шлях до фото нареченого -->
-      <div class="about-card-photo-placeholder">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9a7b5a" stroke-width="1">
-          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-        </svg>
-        <span>Фото Едуарда</span>
-      </div>
-      <!-- або: <img src="eduard.jpg" alt="Едуард" class="about-card-photo"> -->
       <div class="about-card-name">Едуард</div>
       <p>
         Той, що розробляє Метро. Надійний і теплий, завжди знає, як розсмішити. Мандрівник і кулінар-ентузіаст,
@@ -766,6 +871,66 @@
     </div>
   </div>
 </div>
+
+
+<!-- ═══ ДРЕС-КОД ═══ -->
+<section id="dresscode">
+  <span class="section-label reveal">Дрес-код</span>
+  <h2 class="section-title reveal">Вишиванка — <em>запрошена</em></h2>
+  <div class="ornament reveal">✦ ✦ ✦</div>
+
+  <p class="section-body reveal">
+    Наше весілля — це не лише свято кохання, а й свято української душі.
+    Ми будемо безмежно раді бачити вас у вишиванках або вбранні в кольорах
+    нашого прапору. Це не обов'язково — але буде дуже красиво і символічно 🌻
+  </p>
+
+  <!-- Палітра кольорів -->
+  <div class="dresscode-palette reveal">
+    <div class="dresscode-swatch">
+      <div class="dresscode-swatch-color" style="background:#A8C4D4;"></div>
+      <span class="dresscode-swatch-label">Блакитний</span>
+    </div>
+    <div class="dresscode-swatch">
+      <div class="dresscode-swatch-color" style="background:#F0D98A;"></div>
+      <span class="dresscode-swatch-label">Жовтий</span>
+    </div>
+    <div class="dresscode-swatch">
+      <div class="dresscode-swatch-color" style="background:#F5F0E8; border:1px solid #c9b99a;"></div>
+      <span class="dresscode-swatch-label">Молочний</span>
+    </div>
+    <div class="dresscode-swatch">
+      <div class="dresscode-swatch-color" style="background:#E8A8A8;"></div>
+      <span class="dresscode-swatch-label">Рожевий</span>
+    </div>
+    <div class="dresscode-swatch">
+      <div class="dresscode-swatch-color" style="background:#A8C8A8;"></div>
+      <span class="dresscode-swatch-label">М'ятний</span>
+    </div>
+    <div class="dresscode-swatch">
+      <div class="dresscode-swatch-color" style="background:#C9B99A;"></div>
+      <span class="dresscode-swatch-label">Пісочний</span>
+    </div>
+  </div>
+
+  <div class="dresscode-cards">
+    <div class="dresscode-card reveal">
+      <span class="dresscode-card-icon">🌻</span>
+      <div class="dresscode-card-title">Вітається</div>
+      <p>Вишиванки, сорочки з орнаментом, сукні в народному стилі, стрічки та віночки для дівчат, синьо-жовті акценти в образі</p>
+    </div>
+    <div class="dresscode-card reveal">
+      <span class="dresscode-card-icon">✨</span>
+      <div class="dresscode-card-title">Також чудово</div>
+      <p>Елегантний одяг у кольорах палітри — сині, жовті, білі, червоні та зелені відтінки. Головне — ваш святковий настрій!</p>
+    </div>
+  </div>
+
+  <div class="dresscode-note reveal">
+    Якщо вишиванки немає — не переймайтесь. Будь-який святковий образ буде доречним.
+    Ми раді кожному з вас 💛
+  </div>
+</section>
 
 
 <!-- ═══ СПІЛЬНЕ ФОТО ═══ -->
