@@ -763,15 +763,9 @@
   <!-- Спільне фото на двох -->
   <div class="about-couple-photo reveal">
     <!-- Замініть на своє спільне фото: <img src="couple-1.jpg" alt="Анна та Едуард" class="about-couple-img"> -->
-    <div class="about-couple-placeholder">
-      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#9a7b5a" stroke-width="0.8">
-        <circle cx="9" cy="7" r="3"/><path d="M2 20c0-3.5 3-6 7-6"/>
-        <circle cx="15" cy="7" r="3"/><path d="M22 20c0-3.5-3-6-7-6"/>
-        <path d="M9 20c0-3.5 2.7-6 6-6s6 2.5 6 6" opacity="0.4"/>
-      </svg>
-      <span>Ваше спільне фото</span>
-      <small>Замініть на &lt;img src="couple-1.jpg"&gt;</small>
-    </div>
+    <div class="about-couple-photo reveal">
+  <img src="couple-1.jpg" alt="Анна та Едуард" class="about-couple-img">
+</div>
   </div>
 
   <!-- Індивідуальні описи -->
@@ -924,29 +918,6 @@
     Ми раді кожному з вас 💛
   </div>
 </section>
-
-
-<!-- ═══ СПІЛЬНЕ ФОТО ═══ -->
-<div id="photos">
-  <span class="section-label reveal">Спогади</span>
-  <h2 class="section-title reveal">Поділіться <em>моментом</em></h2>
-  <div class="ornament reveal" style="color:var(--gold);opacity:0.4">✦ ✦ ✦</div>
-
-  <p class="reveal" style="color:var(--sand);font-size:1rem;line-height:1.8;max-width:520px;margin:0 auto 2.5rem;">
-    Кожна ваша фотографія стане частиною нашої спільної пам'яті.
-    Завантажте знімки прямо тут — ми збережемо їх назавжди.
-  </p>
-
-  <div class="photo-upload-area reveal" onclick="document.getElementById('photoInput').click()">
-    <span class="photo-upload-icon">📷</span>
-    <div class="photo-upload-title">Ваше фото з нашого дня</div>
-    <div class="photo-upload-sub">Клікніть або перетягніть фотографії сюди</div>
-    <button class="photo-upload-btn" type="button">Обрати фото</button>
-  </div>
-  <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhotos(event)">
-
-  <div class="photo-grid" id="photoGrid"></div>
-</div>
 
 
 <!-- ═══ RSVP / BOT ═══ -->
